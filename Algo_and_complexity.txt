@@ -1,0 +1,48 @@
+The algorithm works as:
+1.Divide the array into two subarray.
+2.Find maximum subarray sum for left half recursively.
+3.Find maximum subarray sum for right half recursively.
+4.Find maximum subarray sum for the subarray including the middle element. (Sum of last two steps)
+5.Return the maximum of the last three results.
+
+
+Time complexity = O(nlogn)
+
+
+FIND_MAXIMUM_SUBARRAY(A, low, high)
+{
+  if low == high
+       return A[low]
+  else mid = |_(low + high)_| / 2
+
+      left_sub_tree = FIND_MAXIMUM_SUBARRAY(A, low, mid)
+      right_sub_tree = FIND_MAXIMUM_SUBARRAY(A, mid + 1, high)
+      cross_sum = FIND_MAX_CROSSING_SUBARRAY(A, low, mid, high)
+
+  if  (left_sub_tree >= right_sub_tree and left_sub_tree >= cross_sum)
+      return left_sub_tree
+  else if(right_sub_tree >= left_sub_tree and right_sub_tree >= cross_sum)
+      return right_sub_tree
+  else  return cross_sum
+
+}
+
+FIND_MAX_CROSSING_SUBARRAY(A, low, mid, high)
+{
+     left_sum = INT_MIN
+     sum = 0
+     for i = mid downto low
+           sum += A[i]
+             if sum > left_sum
+             left_sum = sum
+
+     right_sum = INT_MIN
+     sum = 0
+     for i = mid + 1 to high
+             if sum > right_sum
+             left_sum = sum
+
+     return left_sum + right_sum
+}
+
+
