@@ -39,6 +39,7 @@ FIND_MAX_CROSSING_SUBARRAY(A, low, mid, high)
      right_sum = INT_MIN
      sum = 0
      for i = mid + 1 to high
+             sum += A[i]
              if sum > right_sum
              left_sum = sum
 
